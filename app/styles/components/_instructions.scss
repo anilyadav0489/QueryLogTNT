@@ -1,0 +1,23 @@
+.instructions{
+  -moz-box-shadow: 0 5px gray;
+  -webkit-box-shadow: 0 5px gray;
+  box-shadow: 0 0 50px black;
+  margin: 6rem auto;
+  width: 70%;
+  height: 50%;
+}
+
+.instructions-text{
+  margin: 2rem;
+  font-style: italic;
+  border-width: 0;
+  background-color: white;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+}
+.instructions-button{
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+}
