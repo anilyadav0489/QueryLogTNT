@@ -40,15 +40,17 @@ class Filters extends React.Component {
 
   updateQuery(e){
     e.preventDefault();
+    const id = this.props.selectedQuery.id;
     const queryNumber = this.props.selectedQuery.queryNumber;
     const createdAt = this.props.selectedQuery.createdAt;
     const name = this.refs.name.value;
     const query = this.refs.query.value;
     const comments = this.refs.comments.value;
-    var queryObj = {queryNumber, createdAt, name, query, comments};
+    var queryObj = {id, queryNumber, createdAt, name, query, comments};
     this.props.onUpdateQuery(queryObj);
 
   }
+
 
   clearFields(e){
     e.preventDefault();

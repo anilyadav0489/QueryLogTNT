@@ -4,12 +4,19 @@ class Row extends React.Component {
   constructor(props){
     super(props);
     this.onRowSelection = this.onRowSelection.bind(this);
+    this.deleteQuery = this.deleteQuery.bind(this);
   }
 
   onRowSelection(e){
     e.preventDefault();
     var query = this.props.query;
     this.props.onSelectQuery(query);
+  }
+
+  deleteQuery(e){
+    e.preventDefault();
+    var query = this.props.query;
+    this.props.onDeleteQuery(query);
   }
 
   render (){
@@ -32,7 +39,7 @@ class Row extends React.Component {
           <td>{query.name}</td>
           <td>{query.query}</td>
           <td>{query.comments}</td>
-          <td width="20px"><input type="button" value="Delete"/></td>
+          <td width="20px"><input type="button" value="Delete" onClick={this.deleteQuery}/></td>
         </tr>);
     }
   }

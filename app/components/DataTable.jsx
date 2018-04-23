@@ -6,19 +6,22 @@ class DataTable extends React.Component {
   constructor(props){
     super(props);
     this.handleSelectQuery = this.handleSelectQuery.bind(this);
-    this.state = this.props;
+    this.handleDeleteQuery = this.handleDeleteQuery.bind(this);
+    this.state = this.props.queries;
   }
 
   handleSelectQuery(query){
     this.props.onSelectQuery(query);
   }
 
+  handleDeleteQuery(query){
+    this.props.onDeleteQuery(query);
+  }
+
   render (){
     var that = this;
     var queries = undefined;
-    if(this.props.queries){
-      queries = this.props.queries[0];
-    }
+    queries = this.props.queries;
 
     if((queries ==null || queries==undefined || queries.length == 0)){
           return (
@@ -49,6 +52,7 @@ class DataTable extends React.Component {
                           return (<Row key={index}
                             query={query}
                             onSelectQuery = {that.handleSelectQuery}
+                            onDeleteQuery = {that.handleDeleteQuery}
                             isHeader={false}></Row>);
                           })}
 

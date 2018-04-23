@@ -7,6 +7,8 @@ class Main extends React.Component{
   constructor(props){
     super(props);
     this.handleSelectQuery = this.handleSelectQuery.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
+    this.deleteQuery = this.deleteQuery.bind(this);
     this.state = {selectedQuery: undefined, queries:[]};
   }
 
@@ -16,37 +18,25 @@ class Main extends React.Component{
 
     console.log("mount successfull");
     firebase.database().ref('/queries').on('value', function(snapshot) {
+      var rawQueries = snapshot.val() || {};
       var queries = [];
-      queries.push(Object.keys(snapshot.val() || {}).map(k => snapshot.val()[k]));
+      Object.keys(rawQueries).forEach((q) => {
+        queries.push({
+          id: q,
+          ...rawQueries[q]
+        });
+      });
       that.setState({queries});
     });
   }
 
   updateQuery(queryToUpdate){
-    console.log("All queries before");
-    console.log(this.state.queries[0]);
-
-    this.state.queries[0] = this.state.queries[0].map(query => {
-      if(queryToUpdate.queryNumber == query.queryNumber){
-        query = queryToUpdate;
-      }
-      console.log(query.query);
-      return query;
-    });
-    console.log("All queries after");
-    console.log(this.state.queries[0]);
-    //firebaseRef.child('queries').update(this.state.queries[0]);
-  }
-
-  handleUpdateTable(){
     var that = this;
-
-    firebase.database().ref('/queries').on('value', function(snapshot) {
-      var queries = [];
-      queries.push(Object.keys(snapshot.val() || {}).map(k => snapshot.val()[k]));
-      that.setState({queries});
+    firebaseRef.child(`queries/${queryToUpdate.id}`).update(queryToUpdate).then(()=>{
+      that.setState({selectedQuery: queryToUpdate});
     });
   }
+
 
   handleSelectQuery(selectedQuery){
     console.log('Query to update', selectedQuery.queryNumber);
@@ -57,16 +47,27 @@ class Main extends React.Component{
     var that = this;
     var queryNumber = this.getNewQueryNumber() || 1;
     var queryObj = {...query, queryNumber};
-    firebaseRef.child('queries').push(queryObj);
+    firebaseRef.child('queries').push(queryObj).then(()=>{
+      this.setState({...this.state, selectedQuery: undefined});
+    });
+
   }
 
   getNewQueryNumber(){
     var maxQueryNumber = 0;
     var that = this;
-    if(that.state.queries && that.state.queries[0]){
-      var maxQueryNumber = Math.max.apply(Math, that.state.queries[0].map(function(o){ return o.queryNumber }));
+    if(that.state.queries.length > 0){
+      var maxQueryNumber = Math.max.apply(Math, that.state.queries.map(function(o){ return o.queryNumber }));
     }
     return maxQueryNumber + +1;
+  }
+
+  deleteQuery(query){
+    var that = this;
+    firebaseRef.child(`queries/${query.id}`).remove().then(()=>{
+      that.setState({selectedQuery: undefined});
+      console.log('Delete called successfull');
+    });
   }
 
   render(){
@@ -74,13 +75,12 @@ class Main extends React.Component{
       <div>
         <div>
           <div>
-            <Filters onUpdateTable={this.handleUpdateTable.bind(this)}
-                selectedQuery={this.state.selectedQuery}
+            <Filters selectedQuery={this.state.selectedQuery}
                 onSaveQuery = {this.handleSaveQuery.bind(this)}
-                onUpdateQuery = {this.updateQuery.bind(this)}
-                onUpdateSelectedQuery = {this.handleUpdateSelectedQuery}/>
+                onUpdateQuery = {this.updateQuery.bind(this)} />
             <DataTable onSelectQuery = {this.handleSelectQuery}
-                queries={this.state.queries}/>
+               queries={this.state.queries}
+               onDeleteQuery = {this.deleteQuery}/>
           </div>
         </div>
       </div>

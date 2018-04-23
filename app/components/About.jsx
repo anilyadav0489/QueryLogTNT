@@ -17,8 +17,8 @@ class About extends React.Component{
         </div>
         <div className="row">
           <div className="column small-centered medium-10 large-12">
-              This app is created for maintaining SOW records for FedEx Projects in Syntel.
-              Users can add details for the new SOW and export the details for all the SOW(s) in MS excel format.
+              This app is created for maintaining Queries for TNT Project (FedEx).
+              Users can add, update and export queries in MS excel format.
             <div className="margin">
               <ul>
                 <li>
