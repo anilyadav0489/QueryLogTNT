@@ -21,14 +21,18 @@ class Main extends React.Component{
     this.handleSelectQuery = this.handleSelectQuery.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     this.deleteQuery = this.deleteQuery.bind(this);
-    this.state = {selectedQuery: undefined, queries:[], snackbarOpen: false, snackbarMessage:''};
+    this.state = {selectedQuery: undefined, queries:undefined, snackbarOpen: false, snackbarMessage:''};
   }
 
 
   componentWillMount(){
-    var that = this;
 
     console.log("mount successfull");
+    this.fetchQueries();
+  }
+
+  fetchQueries(){
+    var that = this;
     firebase.database().ref('/queries').on('value', function(snapshot) {
       var rawQueries = snapshot.val() || {};
       var queries = [];
@@ -38,6 +42,17 @@ class Main extends React.Component{
           ...rawQueries[q]
         });
       });
+
+      queries.sort((a, b) => {
+        if (a.queryNumber > b.queryNumber) {
+          return -1;
+        } else if (a.queryNumber < b.queryNumber) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
       that.setState({queries});
     });
   }

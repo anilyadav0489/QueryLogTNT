@@ -5,9 +5,24 @@ import Row from 'Row';
 class DataTable extends React.Component {
   constructor(props){
     super(props);
+    var loadingMessage = 'Loading queries...';
+    var queries = this.props.queries;
     this.handleSelectQuery = this.handleSelectQuery.bind(this);
     this.handleDeleteQuery = this.handleDeleteQuery.bind(this);
-    this.state = this.props.queries;
+
+    this.state = {queries, loadingMessage};
+  }
+
+  componentWillUpdate(nextProps, nextState){
+    var loadingMessage = '';
+    var queries = nextProps.queries;
+    if(nextProps.queries == undefined){
+      loadingMessage = 'Loading queries...';
+      this.setState({queries, loadingMessage});
+    } else if(nextProps.queries != nextState.queries && nextProps.queries.length < 1){
+      loadingMessage = 'No query has been added yet.';
+      this.setState({queries, loadingMessage});
+    }
   }
 
   handleSelectQuery(query){
@@ -32,8 +47,12 @@ class DataTable extends React.Component {
                 </thead>
                 <tbody>
                   <tr >
-                    <td width="10px"></td>
-                    <td colSpan="4" className="no-data">No data available</td>
+                    <td/>
+                    <td width="100%" className="no-data">{that.state.loadingMessage}</td>
+                    <td/>
+                    <td/>
+                    <td/>
+                    <td/>
                   </tr>
                 </tbody>
               </table>

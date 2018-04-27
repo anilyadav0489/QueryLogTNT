@@ -27,7 +27,7 @@ class Row extends React.Component {
     if(this.props.isHeader){
       return (
         <tr onClick={this.onRowSelection}>
-          <th width="30px">Q No.</th>
+          <th width="40px">Q No.</th>
           <th width="150px">Created on</th>
           <th >Name</th>
           <th >Query</th>
@@ -37,7 +37,7 @@ class Row extends React.Component {
     }else{
       return (
         <tr onClick={this.onRowSelection}>
-          <td width="30px">{query.queryNumber}</td>
+          <td width="40px">{query.queryNumber}</td>
           <td width="150px">{query.createdAt}</td>
           <td>{query.name}</td>
           <td>{query.query}</td>
