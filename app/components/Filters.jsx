@@ -1,6 +1,6 @@
 import React from 'react';
-import firebase, {firebaseRef} from 'initDB';
 import moment from 'moment';
+import ActionAndroid from 'material-ui/svg-icons/action/android';
 
 var queryNumber = undefined;
 class Filters extends React.Component {

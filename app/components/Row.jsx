@@ -1,4 +1,6 @@
 import React from 'react';
+import RaisedButtonExampleComplex from 'RaisedButtonExampleComplex';
+
 
 class Row extends React.Component {
   constructor(props){
@@ -6,6 +8,7 @@ class Row extends React.Component {
     this.onRowSelection = this.onRowSelection.bind(this);
     this.deleteQuery = this.deleteQuery.bind(this);
   }
+
 
   onRowSelection(e){
     e.preventDefault();
@@ -39,7 +42,9 @@ class Row extends React.Component {
           <td>{query.name}</td>
           <td>{query.query}</td>
           <td>{query.comments}</td>
-          <td width="20px"><input type="button" value="Delete" onClick={this.deleteQuery}/></td>
+          <td width="100px">
+            <input type="button" value="Delete" onClick={this.deleteQuery}/>
+          </td>
         </tr>);
     }
   }
