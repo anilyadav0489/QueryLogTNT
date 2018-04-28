@@ -58,6 +58,7 @@ class Filters extends React.Component {
     this.refs.name.value = "";
     this.refs.query.value = "";
     this.refs.comments.value = "";
+    this.refs.search.value = "";
   }
 
   render() {
@@ -73,6 +74,10 @@ class Filters extends React.Component {
           <div className="column small-4 medium-4 large-4">
             Name:
             <input ref="name" type="input" placeholder="Name"></input>
+          </div>
+          <div className="column small-4 medium-4 large-4">
+            Search:
+            <input ref="search" type="input" placeholder="search"></input>
           </div>
         </div>
 

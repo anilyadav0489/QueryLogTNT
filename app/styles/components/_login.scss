@@ -18,8 +18,10 @@
 }
 
 .fields{
-  margin: 20px 20px 0px 20px;
-  width: calc(100% - 40px);
+  margin-top: 4%;
+  margin-left: 8%;
+  margin-bottom: 1%;
+  width: 84%;
   color: white;
   font-size: 16px;
   font-weight: 200;
@@ -27,8 +29,7 @@
 }
 
 .fields:focus{
-  margin: 20px 20px 0px 20px;
-  width: 380px;
+  width: 84%;
   color: white;
   font-size: 16px;
   font-weight: 200;
@@ -42,15 +43,17 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 10px 20px 0px 80px;
+  margin-left: 25%;
+
 }
 
 .signInButton{
-  margin-top: 17px;
-  margin-left: 130px;
-  margin-right: 130px;
-  width: calc(100% - 260px);
-  height: 30px;
+  margin-top: 10%;
+  margin-left: 27%;
+  margin-right: 27%;
+  margin-bottom: 10%;
+  width: 46%;
+  height: 90%;
   font-family: sans-serif;
   background: linear-gradient(#4380a9,#ffffff);
   border-radius: 5px;
@@ -59,10 +62,10 @@
 }
 
 .aero{
-   margin-left: calc(100% - 850px);
-   margin-top: calc(-10%);
-   width: calc(100% - 850px);
-   height: 270px;
+   margin-left: 30%;
+   margin-top: -10%;
+   width: 40%;
+   height: 50%;
    background-color: rgba(0,0,0,0.1);
    border-radius: 10px;
    box-shadow: inset 0 50px #070f2f,

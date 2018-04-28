@@ -5,6 +5,7 @@ class Login extends React.Component{
       super(props);
       this.authenticateUser = this.authenticateUser.bind(this);
       this.state={
+        isAuthenticUser: props.isAuthenticUser,
         showLoginFailedMessage: false
       };
   }
@@ -18,40 +19,72 @@ class Login extends React.Component{
   }
 
   render(){
-    return (
-      <div className='login-page'>
-      <div className='aero'>
-        <div className="row ">
-          <div  className="column small-centered medium-10 large-12">
-            <label className="signInHeader">Sign In</label>
+    if(this.props.isAuthenticUser == undefined || this.props.isAuthenticUser == true){
+      return (
+        <div className='login-page'>
+        <div className='aero'>
+          <div className="row ">
+            <div  className="column small-centered medium-10 large-12">
+              <label className="signInHeader">Sign In</label>
+            </div>
+          </div>
+          <div className="row ">
+            <div  className="column small-centered medium-10 large-12">
+              <input type="text" ref="username" placeholder="FedEx Id" className="fields"></input>
+            </div>
+          </div>
+          <div className="row">
+            <div  className="column small-centered medium-10 large-12">
+              <input type="password" ref="password" placeholder="Password" className="fields"></input>
+            </div>
+          </div>
+          <div className="row">
+            <div  className="column small-centered medium-10 large-12">
+              <input type="button" value="Log In" onClick={this.authenticateUser}
+                className="signInButton">
+              </input>
+            </div>
           </div>
         </div>
-        <div className="row ">
-          <div  className="column small-centered medium-10 large-12">
-            <input type="text" ref="username" placeholder="FedEx Id" className="fields"></input>
+      </div>
+      );
+    }else{
+      return (
+        <div className='login-page'>
+        <div className='aero'>
+          <div className="row ">
+            <div  className="column small-centered medium-10 large-12">
+              <label className="signInHeader">Sign In</label>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div  className="column small-centered medium-10 large-12">
-            <input type="password" ref="password" placeholder="Password" className="fields"></input>
+          <div className="row ">
+            <div  className="column small-centered medium-10 large-12">
+              <input type="text" ref="username" placeholder="FedEx Id" className="fields"></input>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div  className="column small-centered medium-10 large-12">
-            <input type="button" value="Log In" onClick={this.authenticateUser}
-              className="signInButton">
-            </input>
+          <div className="row">
+            <div  className="column small-centered medium-10 large-12">
+              <input type="password" ref="password" placeholder="Password" className="fields"></input>
+            </div>
           </div>
-        </div>
+          <div className="row">
+            <div  className="column small-centered medium-10 large-12">
+              <input type="button" value="Log In" onClick={this.authenticateUser}
+                className="signInButton">
+              </input>
+            </div>
+          </div>
 
-        <div className="row">
-          <div className="column small-centered medium-10 large-12">
-            <label ref="message" className="errorMessage">You are not an authorized user.</label>
+          <div className="row">
+            <div className="column small-centered medium-10 large-12">
+              <label ref="message" className="errorMessage">You are not an authorized user.</label>
+            </div>
           </div>
         </div>
-      </div>
-      </div>
-    );
+        </div>
+      );
+    }
+
   }
 }
 

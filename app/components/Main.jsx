@@ -24,7 +24,11 @@ class Main extends React.Component{
     this.updateQuery = this.updateQuery.bind(this);
     this.deleteQuery = this.deleteQuery.bind(this);
     this.authenticateUser = this.authenticateUser.bind(this);
-    this.state = {selectedQuery: undefined, queries:undefined, snackbarOpen: false, snackbarMessage:''};
+    this.state = {selectedQuery: undefined,
+      queries:undefined,
+      snackbarOpen: false,
+      snackbarMessage:'',
+      isAuthenticUser: undefined};
   }
 
 
@@ -109,37 +113,32 @@ class Main extends React.Component{
   }
 
   authenticateUser(username, password){
-
-    if(username == '' && password == ''){
+    if(username == 'admin' && password == 'admin'){
       this.setState({isAuthenticUser: true});
     }else {
-      this.setState({showLoginFailedMessage: true});
+      this.setState({isAuthenticUser: false});
     }
   }
 
   render(){
     if(this.state.isAuthenticUser){
       return (
-        <div>
-          <div>
-            <div>
-              <Filters selectedQuery={this.state.selectedQuery}
-                  onSaveQuery = {this.handleSaveQuery.bind(this)}
-                  onUpdateQuery = {this.updateQuery.bind(this)} />
-              <DataTable onSelectQuery = {this.handleSelectQuery}
-                 queries={this.state.queries}
-                 onDeleteQuery = {this.deleteQuery}/>
-              <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-                <SnackbarExampleSimple message={this.state.snackbarMessage} open={this.state.snackbarOpen}/>
-              </MuiThemeProvider>
+        <div className='query-screen'>
+          <Filters selectedQuery={this.state.selectedQuery}
+              onSaveQuery = {this.handleSaveQuery.bind(this)}
+              onUpdateQuery = {this.updateQuery.bind(this)} />
+          <DataTable onSelectQuery = {this.handleSelectQuery}
+             queries={this.state.queries}
+             onDeleteQuery = {this.deleteQuery}/>
+          <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+            <SnackbarExampleSimple message={this.state.snackbarMessage} open={this.state.snackbarOpen}/>
+          </MuiThemeProvider>
 
-            </div>
-          </div>
         </div>
       );
     } else {
       return (
-        <Login authenticateUser={this.authenticateUser}/>
+        <Login authenticateUser={this.authenticateUser} isAuthenticUser={this.state.isAuthenticUser}/>
       );
     }
 

@@ -24,8 +24,8 @@ class Nav extends React.Component{
         </div>
         <div className="top-bar-right">
             <ul className="menu">
-              <li className="author-text">
-                created by Anil Yadav
+              <li>
+                <a href="https://www.linkedin.com/in/anil-yadav-53b67333/" target="_blank">created by Anil Yadav</a>
               </li>
             </ul>
         </div>
