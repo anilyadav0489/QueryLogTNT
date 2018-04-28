@@ -1,11 +1,11 @@
 import React from 'react';
 //var {connect} = require('react-redux');
-import { Switch, Route} from 'react-router-dom';
+import { IndexRoute, Switch, Route} from 'react-router-dom';
 
 import Nav from 'Nav'
 import Main from 'Main'
 import About from 'About'
-
+import Login from 'Login'
 
 class Application extends React.Component {
   constructor(props){

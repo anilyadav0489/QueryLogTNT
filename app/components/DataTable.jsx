@@ -41,18 +41,13 @@ class DataTable extends React.Component {
     if((queries ==null || queries==undefined || queries.length == 0)){
           return (
             <div className = "data-table">
-              <table className="hover stack">
-                <thead className="data-table-header">
+              <table className="table">
+                <thead>
                   <Row key="0" isHeader={true}></Row>
                 </thead>
                 <tbody>
                   <tr >
-                    <td/>
-                    <td width="100%" className="no-data">{that.state.loadingMessage}</td>
-                    <td/>
-                    <td/>
-                    <td/>
-                    <td/>
+                    <td colSpan="6" >{that.state.loadingMessage}</td>
                   </tr>
                 </tbody>
               </table>
@@ -62,8 +57,8 @@ class DataTable extends React.Component {
         return (
             <div>
               <div className = "data-table">
-                <table className="hover ">
-                  <thead className="data-table-header">
+                <table className="table">
+                  <thead>
                     <Row key="0" isHeader={true}></Row>
                   </thead>
                   <tbody>
@@ -73,8 +68,7 @@ class DataTable extends React.Component {
                             onSelectQuery = {that.handleSelectQuery}
                             onDeleteQuery = {that.handleDeleteQuery}
                             isHeader={false}></Row>);
-                          })}
-
+                    })}
                   </tbody>
                 </table>
               </div>

@@ -4,6 +4,8 @@ import DataTable from 'DataTable';
 import firebase, {firebaseRef} from 'initDB';
 
 import SnackbarExampleSimple from 'SnackbarExampleSimple';
+import TableExampleComplex from 'TableExampleComplex';
+import Login from 'Login';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
@@ -21,6 +23,7 @@ class Main extends React.Component{
     this.handleSelectQuery = this.handleSelectQuery.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     this.deleteQuery = this.deleteQuery.bind(this);
+    this.authenticateUser = this.authenticateUser.bind(this);
     this.state = {selectedQuery: undefined, queries:undefined, snackbarOpen: false, snackbarMessage:''};
   }
 
@@ -105,25 +108,41 @@ class Main extends React.Component{
     });
   }
 
+  authenticateUser(username, password){
+
+    if(username == '' && password == ''){
+      this.setState({isAuthenticUser: true});
+    }else {
+      this.setState({showLoginFailedMessage: true});
+    }
+  }
+
   render(){
-    return (
-      <div>
+    if(this.state.isAuthenticUser){
+      return (
         <div>
           <div>
-            <Filters selectedQuery={this.state.selectedQuery}
-                onSaveQuery = {this.handleSaveQuery.bind(this)}
-                onUpdateQuery = {this.updateQuery.bind(this)} />
-            <DataTable onSelectQuery = {this.handleSelectQuery}
-               queries={this.state.queries}
-               onDeleteQuery = {this.deleteQuery}/>
-            <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-              <SnackbarExampleSimple message={this.state.snackbarMessage} open={this.state.snackbarOpen}/>
-            </MuiThemeProvider>
+            <div>
+              <Filters selectedQuery={this.state.selectedQuery}
+                  onSaveQuery = {this.handleSaveQuery.bind(this)}
+                  onUpdateQuery = {this.updateQuery.bind(this)} />
+              <DataTable onSelectQuery = {this.handleSelectQuery}
+                 queries={this.state.queries}
+                 onDeleteQuery = {this.deleteQuery}/>
+              <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+                <SnackbarExampleSimple message={this.state.snackbarMessage} open={this.state.snackbarOpen}/>
+              </MuiThemeProvider>
 
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <Login authenticateUser={this.authenticateUser}/>
+      );
+    }
+
   }
 
 }
